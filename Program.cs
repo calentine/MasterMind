@@ -16,13 +16,12 @@ namespace MasterMind
             PrintGreeting();
             int attempts = 0;
             bool correct = false;
+            int randomNum = GetRandomNumber();
             while (attempts < 10 && !correct)
             {
-                int randomNum = GetRandomNumber();
-                int testNum = 1234;
                 int guessedNum = int.Parse(Console.ReadLine());
-                Console.WriteLine($"You entered: {guessedNum} compare: {testNum}");
-                string result = CompareGuessedNumber(testNum, guessedNum);
+                Console.WriteLine($"You entered: {guessedNum}");
+                string result = CompareGuessedNumber(randomNum, guessedNum);
                 attempts++;
                 if (result == "++++")
                 {

@@ -23,7 +23,7 @@ namespace MasterMind
             //random number returned based on 1-6
             string randomNum = GetRandomNumber();
             //testNum for manual entry and used to replace randomNum for testing purposes
-            int testNum = 1234;
+            string testNum = "1234";
             while (attempts < 10 && !correct)
             {
                 string guessedNum = Console.ReadLine();

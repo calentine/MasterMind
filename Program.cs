@@ -15,12 +15,18 @@ namespace MasterMind
             PrintGreeting();
             int attempts = 0;
             bool correct = false;
-            while (attempts < 10 || !correct)
+            while (attempts < 10 && !correct)
             {
-                int number = int.Parse(Console.ReadLine());
-                Console.WriteLine($"You entered: {number} compare: {GetRandomNumber()}");
+                int randomNum = GetRandomNumber();
+                int testNum = 1234;
+                int guessedNum = int.Parse(Console.ReadLine());
+                Console.WriteLine($"You entered: {guessedNum} compare: {testNum}");
+                Console.WriteLine(CompareGuessedNumber(testNum, guessedNum));
                 attempts++;
+                Console.WriteLine($"your on attemp: {attempts}");
             }
+
+           
 
         }
         public static void PrintGreeting()
@@ -45,10 +51,47 @@ namespace MasterMind
             return number;
         }
 
-        public static string CompareGuessedNumber(int value, int guess)
+        public static string CompareGuessedNumber(int randomNum, int guessedNum)
         {
+            string random = randomNum.ToString();
+            string guess = guessedNum.ToString();
 
-            return "";
+            int match = 0;
+            int noMatch = 0;
+            int contains = 0;
+            string result = "";
+            for(int i = 0; i < guess.Length;i++)
+            {
+                if(guess[i] == random[i])
+                {
+                    match++;
+                }
+                else if ( !(guess.Contains(random[i])) )
+                {
+                    noMatch++;
+                   
+                }
+            }
+
+           contains = 4 - (match + noMatch);
+
+
+            for (int i = 0; i < match; i++)
+            {
+                result += "+";
+            }
+            for (int i = 0; i < contains; i++)
+            {
+                result += "-";
+            }
+            for (int i = 0; i < noMatch; i++)
+            {
+                result += " ";
+            }
+
+            Console.WriteLine($"{match}");
+
+            return result;
         }
 
     }

@@ -12,17 +12,25 @@ namespace MasterMind
     {
         static void Main(string[] args)
         {
-
+            /*
+             * Main function Prints greeting for the game
+             * Executes game within loop until the correct answer is found or exceeded the amount of tries (10)
+             * Once either of the above contraints are met the game will end and a message will be printed based on result
+             */
             PrintGreeting();
             int attempts = 0;
             bool correct = false;
-            int randomNum = GetRandomNumber();
+            //random number returned based on 1-6
+            string randomNum = GetRandomNumber();
+            //testNum for manual entry and used to replace randomNum for testing purposes
+            int testNum = 1234;
             while (attempts < 10 && !correct)
             {
-                int guessedNum = int.Parse(Console.ReadLine());
+                string guessedNum = Console.ReadLine();
                 Console.WriteLine($"You entered: {guessedNum}");
                 string result = CompareGuessedNumber(randomNum, guessedNum);
                 attempts++;
+                //if digits all match set bool to drop out of loop, else print hint and remaining attempts
                 if (result == "++++")
                 {
                     correct = true;
@@ -33,7 +41,6 @@ namespace MasterMind
                     Console.WriteLine($"You have: {10 - attempts} more attempts.");
                 }
             }
-
             if (correct)
             {
                 Console.WriteLine("You have guess correctly, you're a mastermind!");
@@ -43,6 +50,9 @@ namespace MasterMind
                 Console.WriteLine("You have Lost!");
             }
         }
+        /*
+         * Provides greeting to explain rules to player
+        */
         public static void PrintGreeting()
         {
             Console.WriteLine("Welcome to Novice Mind!\n");
@@ -51,7 +61,13 @@ namespace MasterMind
             Console.WriteLine("Please Enter your Guess: ");
         }
 
-        public static int GetRandomNumber()
+        /*
+         * constructs number by getting a value (1-6) iteratively
+         * multiplies it by powers of 10
+         * adds it to the current number until we have 4 digit number
+         * return as a string for later comparison to guessed number
+         */
+        public static string GetRandomNumber()
         {
             int number = 0;
             Random random = new Random();
@@ -62,14 +78,16 @@ namespace MasterMind
                 number += value; 
             }
 
-            return number;
+            return number.ToString();
         }
-
-        public static string CompareGuessedNumber(int randomNum, int guessedNum)
+        /*
+         * Create 2 int variables to store how many matches and non-matched numbers
+         * Create 2 strings that will remove the numbers that have already been matched
+         * loop over and increment matched numbers between guess and random, else construct new non-matched strings
+         * loop over new strings(randomRemoveMatch, guessRemoveMatch) and increment noMatch for non-intersecting numbers from (new strings) 
+         */
+        public static string CompareGuessedNumber(string random, string guess)
         {
-            string random = randomNum.ToString();
-            string guess = guessedNum.ToString();
-
             int match = 0;
             int noMatch = 0;
             string randomRemoveMatch = "";
@@ -98,6 +116,11 @@ namespace MasterMind
             return ConstructResult(match, noMatch);
         }
 
+        /*
+         * Takes in 2 integers to determine how many times each (hint character: +,-, or " ") will be added to result string
+         * Created a contains integer because we know if we take the sum of match & unMatch we can find the amount of numbers that intersect
+         * Finally we construct the result by looping over the count of (matched, contains, and unMatched) and then return the result
+         */
         public static string ConstructResult(int match, int noMatch)
         {
             string constructedResult = "";

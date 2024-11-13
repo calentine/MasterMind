@@ -142,7 +142,8 @@ namespace MasterMind
                     constructedResult += " ";
                 }
             }
-                return constructedResult;
+            
+            return constructedResult;
         }
 
     }

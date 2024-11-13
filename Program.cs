@@ -20,10 +20,8 @@ namespace MasterMind
             PrintGreeting();
             int attempts = 0;
             bool correct = false;
-            //random number returned based on 1-6
+            //random number returned based on 1-6 (feel free to assign string literal for testing purposes)
             string randomNum = GetRandomNumber();
-            //testNum for manual entry and used to replace randomNum for testing purposes
-            string testNum = "1234";
             while (attempts < 10 && !correct)
             {
                 string guessedNum = Console.ReadLine();
@@ -124,8 +122,9 @@ namespace MasterMind
         public static string ConstructResult(int match, int noMatch)
         {
             string constructedResult = "";
-            int contains = 4 -(match + noMatch);
-            for (int i = 0; i < 4; i++)
+            int numLength = 4;
+            int contains = numLength - (match + noMatch);
+            for (int i = 0; i < numLength; i++)
             {
                 if (match > 0)
                 {

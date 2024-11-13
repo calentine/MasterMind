@@ -125,20 +125,24 @@ namespace MasterMind
         {
             string constructedResult = "";
             int contains = 4 -(match + noMatch);
-            for (int i = 0; i < match; i++)
+            for (int i = 0; i < 4; i++)
             {
-                constructedResult += "+";
+                if (match > 0)
+                {
+                    constructedResult += "+";
+                    match--;
+                }
+                else if (contains > 0)
+                {
+                    constructedResult += "-";
+                    contains--;
+                }
+                else
+                {
+                    constructedResult += " ";
+                }
             }
-            for (int i = 0; i < contains; i++)
-            {
-                constructedResult += "-";
-            }
-            for (int i = 0; i < noMatch; i++)
-            {
-                constructedResult += " ";
-            }
-
-            return constructedResult;
+                return constructedResult;
         }
 
     }
